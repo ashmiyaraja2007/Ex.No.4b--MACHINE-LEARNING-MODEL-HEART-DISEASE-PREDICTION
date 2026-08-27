@@ -17,6 +17,114 @@ To develop a Heart Disease Prediction model using machine learning classificatio
 •	The output generally contains two classes: 
 o	0 – No Heart Disease 
 o	1 – Heart Disease 
+# PROCEDURE
+Import Libraries: Import Pandas, NumPy, Matplotlib, Seaborn, and Scikit-learn.
+Load Dataset: Load the heart disease dataset and examine its features and target variable.
+Preprocess Data: Handle missing values, remove duplicates, and convert categorical data into numerical form if required.
+Split Data: Separate the input features and target variable, then split the dataset into training and testing data.
+Train Models: Apply classification algorithms such as Logistic Regression, Decision Tree, KNN, and Random Forest.
+Make Predictions: Use the trained models to predict whether heart disease is present or absent.
+Evaluate Models: Calculate Accuracy, Precision, Recall, F1-Score, and Confusion Matrix.
+Compare Results: Compare the performance of all models and identify the best-performing classification model.
+# WORKING PRINCIPLE 
+The heart disease prediction system works by using machine learning classification algorithms to learn patterns from patient health data.
+
+Input Data: Patient features such as age, blood pressure, cholesterol, and other relevant attributes are given as input.
+Preprocessing: The data is cleaned, converted into a suitable format, and scaled if required.
+Model Training: Classification algorithms learn the relationship between patient features and the target outcome from the training data.
+Prediction: The trained model predicts whether the patient is likely to have heart disease or not.
+Evaluation: The prediction performance is measured using accuracy, precision, recall, and F1-score.
+Model Comparison: The results of different classification models are compared to select the best-performing model.
+# PROGRAM
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+
+# Load dataset
+data = pd.read_csv("heart.csv")
+
+# Separate features and target
+X = data.drop("target", axis=1)
+y = data["target"]
+
+# Split dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# Feature scaling
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Create models
+models = {
+    "Logistic Regression": LogisticRegression(),
+    "Decision Tree": DecisionTreeClassifier(random_state=42),
+    "KNN": KNeighborsClassifier(),
+    "Random Forest": RandomForestClassifier(random_state=42)
+}
+
+# Train and evaluate models
+for name, model in models.items():
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+
+    print("\n", name)
+    print("Accuracy :", accuracy_score(y_test, y_pred))
+    print("Precision:", precision_score(y_test, y_pred))
+    print("Recall   :", recall_score(y_test, y_pred))
+    print("F1 Score :", f1_score(y_test, y_pred))
+# BLOCK DIAGRAM
+        ┌──────────────────────────┐
+        │  HEART DISEASE DATASET   │
+        └────────────┬─────────────┘
+                     ↓
+        ┌──────────────────────────┐
+        │   DATA PREPROCESSING     │
+        │ Missing Values & Encoding│
+        └────────────┬─────────────┘
+                     ↓
+        ┌──────────────────────────┐
+        │ FEATURE & TARGET SPLIT   │
+        └────────────┬─────────────┘
+                     ↓
+        ┌──────────────────────────┐
+        │    TRAIN-TEST SPLIT      │
+        └────────────┬─────────────┘
+                     ↓
+     ┌─────────────────────────────────┐
+     │     CLASSIFICATION MODELS       │
+     │                                 │
+     │ Logistic Regression             │
+     │ Decision Tree                   │
+     │ K-Nearest Neighbors (KNN)       │
+     │ Random Forest                   │
+     └───────────────┬─────────────────┘
+                     ↓
+        ┌──────────────────────────┐
+        │       PREDICTION         │
+        │ Heart Disease / No       │
+        └────────────┬─────────────┘
+                     ↓
+        ┌──────────────────────────┐
+        │    MODEL EVALUATION      │
+        │ Accuracy | Precision     │
+        │ Recall | F1-Score        │
+        └────────────┬─────────────┘
+                     ↓
+        ┌──────────────────────────┐
+        │  COMPARE & SELECT BEST   │
+        │         MODEL            │
+        └──────────────────────────┘
+
+
+
 ## DATASET
 The dataset contains medical information about patients.
 Typical attributes include:
@@ -209,5 +317,7 @@ plt.show()
 
 ## CONCLUSION
 Thus, machine learning classification models were successfully applied for heart disease prediction, and their performance was compared using standard classification evaluation metrics.
+# RESULT 
+The Heart Disease Prediction model was successfully developed using different machine learning classification algorithms. The models were evaluated using Accuracy, Precision, Recall, and F1-Score. The performance of the models was compared, and the best-performing model was identified for predicting heart disease.
 
 
